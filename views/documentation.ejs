@@ -1,0 +1,331 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation API - Port de Russell</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #eef3f7;
+            color: #243447;
+        }
+
+        header {
+            padding: 20px 5%;
+            background: #174a6e;
+            color: white;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+        }
+
+        main {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+        h1, h2 {
+            color: #174a6e;
+        }
+
+        .intro {
+            line-height: 1.6;
+        }
+
+        .section {
+            margin: 25px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .route {
+            display: grid;
+            grid-template-columns: 90px 1fr;
+            gap: 12px;
+            align-items: start;
+            padding: 13px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .route:last-child {
+            border-bottom: none;
+        }
+
+        .method {
+            padding: 5px 8px;
+            border-radius: 5px;
+            color: white;
+            text-align: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .get {
+            background: #18794e;
+        }
+
+        .post {
+            background: #2563a6;
+        }
+
+        .put {
+            background: #a16207;
+        }
+
+        .delete {
+            background: #b42318;
+        }
+
+        code {
+            overflow-wrap: anywhere;
+            color: #174a6e;
+            font-size: 14px;
+        }
+
+        .description {
+            margin-top: 5px;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .note {
+            padding: 15px;
+            border-left: 4px solid #d97706;
+            background: #fff7ed;
+            line-height: 1.6;
+        }
+
+        .back {
+            display: inline-block;
+            margin: 10px 0 25px;
+            padding: 10px 15px;
+            border-radius: 6px;
+            background: #174a6e;
+            color: white;
+            text-decoration: none;
+        }
+
+        footer {
+            padding: 20px;
+            text-align: center;
+            color: #64748b;
+        }
+
+        @media (max-width: 500px) {
+            .route {
+                grid-template-columns: 75px 1fr;
+            }
+
+            .section {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="/">← Retour à l'accueil</a>
+    </header>
+
+    <main>
+        <h1>Documentation de l'API</h1>
+
+        <p class="intro">
+            Cette documentation présente les routes de l'API de gestion
+            des catways et des réservations du port de Russell.
+        </p>
+
+        <p class="note">
+            <strong>Important :</strong> les routes ci-dessous sont protégées
+            par une connexion, sauf la page d'accueil, la connexion et la
+            déconnexion. Les routes de l'API renvoient des données JSON.
+        </p>
+
+        <section class="section">
+            <h2>Authentification</h2>
+
+            <div class="route">
+                <span class="method post">POST</span>
+                <div>
+                    <code>/login</code>
+                    <div class="description">Se connecter avec une adresse e-mail et un mot de passe.</div>
+                </div>
+            </div>
+
+            <div class="route">
+                <span class="method get">GET</span>
+                <div>
+                    <code>/logout</code>
+                    <div class="description">Se déconnecter.</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Catways</h2>
+
+            <div class="route">
+                <span class="method get">GET</span>
+                <div>
+                    <code>/catways</code>
+                    <div class="description">Récupérer tous les catways.</div>
+                </div>
+            </div>
+
+            <div class="route">
+                <span class="method get">GET</span>
+                <div>
+                    <code>/catways/:id</code>
+                    <div class="description">Récupérer un catway par son numéro.</div>
+                </div>
+            </div>
+
+            <div class="route">
+                <span class="method post">POST</span>
+                <div>
+                    <code>/catways</code>
+                    <div class="description">Créer un catway.</div>
+                </div>
+            </div>
+
+            <div class="route">
+                <span class="method put">PUT</span>
+                <div>
+                    <code>/catways/:id</code>
+                    <div class="description">Modifier l'état d'un catway.</div>
+                </div>
+            </div>
+
+            <div class="route">
+                <span class="method delete">DELETE</span>
+                <div>
+                    <code>/catways/:id</code>
+                    <div class="description">Supprimer un catway.</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Réservations</h2>
+
+            <div class="route">
+                <span class="method get">GET</span>
+                <div>
+                    <code>/catways/:id/reservations</code>
+                    <div class="description">Récupérer les réservations d'un catway.</div>
+                </div>
+            </div>
+
+            <div class="route">
+                <span class="method get">GET</span>
+                <div>
+                    <code>/catways/:id/reservations/:idReservation</code>
+                    <div class="description">Récupérer une réservation précise.</div>
+                </div>
+            </div>
+
+            <div class="route">
+                <span class="method post">POST</span>
+                <div>
+                    <code>/catways/:id/reservations</code>
+                    <div class="description">Créer une réservation pour un catway.</div>
+                </div>
+            </div>
+
+            <div class="route">
+                <span class="method put">PUT</span>
+                <div>
+                    <code>/catways/:id/reservations/:idReservation</code>
+                    <div class="description">Modifier une réservation.</div>
+                </div>
+            </div>
+
+            <div class="route">
+                <span class="method delete">DELETE</span>
+                <div>
+                    <code>/catways/:id/reservations/:idReservation</code>
+                    <div class="description">Supprimer une réservation.</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Utilisateurs</h2>
+
+            <div class="route">
+                <span class="method get">GET</span>
+                <div>
+                    <code>/users</code>
+                    <div class="description">Récupérer la liste des utilisateurs.</div>
+                </div>
+            </div>
+
+            <div class="route">
+                <span class="method get">GET</span>
+                <div>
+                    <code>/users/:email</code>
+                    <div class="description">Récupérer un utilisateur par son adresse e-mail.</div>
+                </div>
+            </div>
+
+            <div class="route">
+                <span class="method post">POST</span>
+                <div>
+                    <code>/users</code>
+                    <div class="description">Créer un utilisateur.</div>
+                </div>
+            </div>
+
+            <div class="route">
+                <span class="method put">PUT</span>
+                <div>
+                    <code>/users/:email</code>
+                    <div class="description">Modifier un utilisateur.</div>
+                </div>
+            </div>
+
+            <div class="route">
+                <span class="method delete">DELETE</span>
+                <div>
+                    <code>/users/:email</code>
+                    <div class="description">Supprimer un utilisateur.</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Utilisation de l'API</h2>
+
+            <p>
+                Les routes qui créent ou modifient des données attendent
+                généralement un corps de requête au format JSON.
+            </p>
+
+            <p>
+                Pour les requêtes protégées, il faut d'abord se connecter
+                et conserver le cookie de session.
+            </p>
+        </section>
+
+        <a class="back" href="/dashboard">Retour au tableau de bord</a>
+    </main>
+
+    <footer>
+        Documentation de l'API — Port de Russell
+    </footer>
+</body>
+</html>

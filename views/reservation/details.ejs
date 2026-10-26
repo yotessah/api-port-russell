@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails de la réservation - Port de Russell</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px 15px;
+            font-family: Arial, sans-serif;
+            background: #eef3f7;
+            color: #243447;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            color: #174a6e;
+        }
+
+        .information {
+            margin: 20px 0;
+            padding: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .label {
+            display: block;
+            margin-bottom: 8px;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .value {
+            font-size: 18px;
+            font-weight: bold;
+            overflow-wrap: anywhere;
+        }
+
+        .button {
+            display: inline-block;
+            margin: 10px 8px 0 0;
+            padding: 11px 15px;
+            border-radius: 6px;
+            background: #174a6e;
+            color: white;
+            text-decoration: none;
+        }
+
+        .button:hover {
+            background: #23658f;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <h1>Détails de la réservation</h1>
+
+        <p>Informations concernant cette réservation du port de Russell.</p>
+
+        <div class="information">
+            <span class="label">Numéro du catway</span>
+            <span class="value"><%= reservation.catwayNumber %></span>
+        </div>
+
+        <div class="information">
+            <span class="label">Nom du client</span>
+            <span class="value"><%= reservation.clientName %></span>
+        </div>
+
+        <div class="information">
+            <span class="label">Nom du bateau</span>
+            <span class="value"><%= reservation.boatName %></span>
+        </div>
+
+        <div class="information">
+            <span class="label">Date de début</span>
+            <span class="value">
+                <%= new Date(reservation.startDate).toLocaleString("fr-FR") %>
+            </span>
+        </div>
+
+        <div class="information">
+            <span class="label">Date de fin</span>
+            <span class="value">
+                <%= new Date(reservation.endDate).toLocaleString("fr-FR") %>
+            </span>
+        </div>
+
+        <a class="button" href="/reservations-page">Retour aux réservations</a>
+        <a class="button" href="/dashboard">Tableau de bord</a>
+    </main>
+</body>
+</html>
+

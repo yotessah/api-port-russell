@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Utilisateurs - Port de Russell</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #eef3f7;
+            color: #243447;
+        }
+
+        header {
+            padding: 20px 5%;
+            background: #174a6e;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+        }
+
+        main {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #174a6e;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 14px;
+            border: none;
+            border-radius: 6px;
+            background: #174a6e;
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background: #23658f;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background: #dceaf3;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .empty {
+            padding: 25px;
+            text-align: center;
+            color: #64748b;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="/dashboard">← Retour au tableau de bord</a>
+    </header>
+
+    <main>
+        <div class="top">
+            <div>
+                <h1>Gestion des utilisateurs</h1>
+                <p>Consultez les comptes utilisateurs de l'application.</p>
+            </div>
+
+            <a class="button" href="/users/create">
+                Ajouter un utilisateur
+            </a>
+        </div>
+
+        <section class="table-container">
+            <% if (users && users.length > 0) { %>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nom d'utilisateur</th>
+                            <th>Adresse e-mail</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <% users.forEach(function(user) { %>
+                            <tr>
+                                <td><%= user.username %></td>
+                                <td><%= user.email %></td>
+                                <td>
+                                    <div class="actions">
+                                        <a class="button"
+                                           href="/users-page/<%= encodeURIComponent(user.email) %>/edit">
+                                            Modifier
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            <% } else { %>
+                <p class="empty">Aucun utilisateur à afficher pour le moment.</p>
+            <% } %>
+        </section>
+    </main>
+</body>
+</html>

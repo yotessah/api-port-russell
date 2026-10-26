@@ -1,0 +1,145 @@
+```ejs
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du catway</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 40px 20px;
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            color: #1f2937;
+            text-align: center;
+        }
+
+        .details-card {
+            padding: 30px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .detail-row {
+            padding: 18px 0;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 16px;
+        }
+
+        .detail-row:last-of-type {
+            border-bottom: none;
+        }
+
+        .detail-row strong {
+            display: inline-block;
+            min-width: 100px;
+            color: #374151;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            text-align: center;
+            transition: background-color 0.2s;
+        }
+
+        .button-primary {
+            background-color: #2563eb;
+            color: white;
+        }
+
+        .button-primary:hover {
+            background-color: #1d4ed8;
+        }
+
+        .button-secondary {
+            background-color: #e5e7eb;
+            color: #1f2937;
+        }
+
+        .button-secondary:hover {
+            background-color: #d1d5db;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 25px 15px;
+            }
+
+            .details-card {
+                padding: 20px;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            .button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <h1>Détails du catway</h1>
+
+        <section class="details-card">
+            <div class="detail-row">
+                <strong>Numéro :</strong>
+                <%= catway.catwayNumber %>
+            </div>
+
+            <div class="detail-row">
+                <strong>Type :</strong>
+                <%= catway.catwayType %>
+            </div>
+
+            <div class="detail-row">
+                <strong>État :</strong>
+                <%= catway.catwayState %>
+            </div>
+
+            <div class="actions">
+                <a class="button button-secondary" href="/catways-page">
+                    Retour à la liste
+                </a>
+
+                <a class="button button-primary"
+                   href="/catways/<%= encodeURIComponent(catway.catwayNumber) %>/edit">
+                    Modifier
+                </a>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
+```

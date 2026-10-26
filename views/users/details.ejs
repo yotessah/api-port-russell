@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails de l'utilisateur - Port de Russell</title>
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 30px 15px;
+            font-family: Arial, sans-serif;
+            background: #eef3f7;
+            color: #243447;
+        }
+
+        main {
+            max-width: 650px;
+            margin: auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 { color: #174a6e; }
+
+        .information {
+            margin: 20px 0;
+            padding: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .label {
+            display: block;
+            margin-bottom: 8px;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .value {
+            font-size: 18px;
+            font-weight: bold;
+            overflow-wrap: anywhere;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 11px 15px;
+            border-radius: 6px;
+            background: #174a6e;
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Détails de l'utilisateur</h1>
+
+        <div class="information">
+            <span class="label">Nom d'utilisateur</span>
+            <span class="value"><%= user.username %></span>
+        </div>
+
+        <div class="information">
+            <span class="label">Adresse e-mail</span>
+            <span class="value"><%= user.email %></span>
+        </div>
+
+        <a class="button" href="/users-page">Retour aux utilisateurs</a>
+        <a class="button" href="/dashboard">Tableau de bord</a>
+    </main>
+</body>
+</html>

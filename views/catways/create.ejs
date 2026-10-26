@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter un catway - Port de Russell</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px 15px;
+            font-family: Arial, sans-serif;
+            background: #eef3f7;
+            color: #243447;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            color: #174a6e;
+        }
+
+        label {
+            display: block;
+            margin: 20px 0 8px;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        button, .back {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 6px;
+            background: #174a6e;
+            color: white;
+            font-size: 16px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        button:hover, .back:hover {
+            background: #23658f;
+        }
+
+        .hint {
+            color: #64748b;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <h1>Ajouter un catway</h1>
+        <p>Complétez les informations du nouveau catway.</p>
+
+        <form action="/catways-page" method="POST">
+            <label for="catwayNumber">Numéro du catway</label>
+            <input
+                type="number"
+                id="catwayNumber"
+                name="catwayNumber"
+                min="1"
+                required
+            >
+
+            <label for="catwayType">Type de catway</label>
+            <select id="catwayType" name="catwayType" required>
+                <option value="">Choisir un type</option>
+                <option value="long">Long</option>
+                <option value="short">Court</option>
+            </select>
+
+            <label for="catwayState">État du catway</label>
+            <textarea
+                id="catwayState"
+                name="catwayState"
+                minlength="2"
+                placeholder="Ex. : Bon état"
+                required
+            ></textarea>
+
+            <p class="hint">
+                Le numéro doit être unique. Le type et l'état sont obligatoires.
+            </p>
+
+            <button type="submit">Créer le catway</button>
+        </form>
+
+        <a class="back" href="/dashboard">Retour au tableau de bord</a>
+        <a class="back" href="/catways-page">Retour à la liste</a>
+    </main>
+</body>
+</html>

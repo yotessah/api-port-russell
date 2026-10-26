@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des catways - Port de Russell</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #eef3f7;
+            color: #243447;
+        }
+
+        header {
+            padding: 20px 5%;
+            background: #174a6e;
+            color: white;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+        }
+
+        main {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        h1, h2 {
+            color: #174a6e;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 15px;
+            border-radius: 6px;
+            background: #174a6e;
+            color: white;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background: #23658f;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background: #dceaf3;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .empty {
+            padding: 25px;
+            text-align: center;
+            color: #64748b;
+        }
+
+        footer {
+            margin-top: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="/dashboard">← Retour au tableau de bord</a>
+    </header>
+
+    <main>
+        <div class="top">
+            <div>
+                <h1>Gestion des catways</h1>
+                <p>Consultez les catways du port de Russell.</p>
+            </div>
+
+            <a class="button" href="/catways/create">
+                Ajouter un catway
+            </a>
+        </div>
+
+        <section class="table-container">
+            <% if (catways && catways.length > 0) { %>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Numéro</th>
+                            <th>Type</th>
+                            <th>État</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <% catways.forEach(function(catway) { %>
+                            <tr>
+                                <td><%= catway.catwayNumber %></td>
+                                <td><%= catway.catwayType %></td>
+                                <td><%= catway.catwayState %></td>
+                                <td>
+                                    <div class="actions">
+                                        <a
+                                            class="button"
+                                            href="/catways-page/<%= catway.catwayNumber %>"
+                                        >
+                                            Détails
+                                        </a>
+
+                                        <a
+                                            class="button"
+                                            href="/catways/<%= catway.catwayNumber %>/edit"
+                                        >
+                                            Modifier
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            <% } else { %>
+                <p class="empty">
+                    Aucun catway à afficher pour le moment.
+                </p>
+            <% } %>
+        </section>
+
+        <footer>
+            <a href="/logout">Se déconnecter</a>
+        </footer>
+    </main>
+</body>
+</html>
