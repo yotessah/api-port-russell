@@ -29,7 +29,6 @@ async function creerAdmin() {
 
         console.log("Compte créé avec succès !");
         console.log("Email :", email);
-        console.log("Mot de passe :", password);
     } catch (error) {
         console.error("Erreur :", error.message);
     } finally {
