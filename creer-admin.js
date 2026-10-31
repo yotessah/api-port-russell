@@ -12,23 +12,27 @@ async function creerAdmin() {
         const email = process.env.ADMIN_EMAIL;
         const password = process.env.ADMIN_PASSWORD;
 
-        const existe = await User.findOne({ email });
-
-        if (existe) {
-            console.log("Ce compte existe déjà.");
-            return;
+        if (!email || !password) {
+            throw new Error("ADMIN_EMAIL ou ADMIN_PASSWORD manquant dans .env");
         }
 
         const motDePasseSecurise = await bcrypt.hash(password, 12);
 
-        await User.create({
-            username: "admin",
-            email,
-            password: motDePasseSecurise
-        });
+        const admin = await User.findOne({ email });
 
-        console.log("Compte créé avec succès !");
-        console.log("Email :", email);
+        if (admin) {
+            admin.password = motDePasseSecurise;
+            await admin.save();
+            console.log("Mot de passe administrateur réinitialisé !");
+        } else {
+            await User.create({
+                username: "admin",
+                email,
+                password: motDePasseSecurise
+            });
+            console.log("Compte administrateur créé !");
+        }
+
     } catch (error) {
         console.error("Erreur :", error.message);
     } finally {
@@ -37,3 +41,4 @@ async function creerAdmin() {
 }
 
 creerAdmin();
+
