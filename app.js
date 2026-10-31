@@ -3,14 +3,14 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const session = require("express-session");
-const catwayController = require("./controllers/catwayController");
-const reservationController = require("./controllers/reservationController");
-const userController = require("./controllers/userController");
 const methodOverride = require("method-override");
 
 dotenv.config();
 
 const app = express();
+
+// Configuration du proxy pour Render
+app.set("trust proxy", 1);
 
 // Connexion à MongoDB
 mongoose.connect(process.env.MONGODB_URI)
@@ -22,6 +22,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
+// Journalisation des requêtes
 app.use((req, res, next) => {
     console.log("REQUÊTE REÇUE :", req.method, req.originalUrl);
     next();
@@ -35,7 +36,8 @@ app.use(session({
     cookie: {
         httpOnly: true,
         sameSite: "lax",
-        secure: process.env.NODE_ENV === "production"
+        secure: process.env.NODE_ENV === "production",
+        maxAge: 1000 * 60 * 60 * 24
     }
 }));
 
@@ -45,6 +47,11 @@ app.use(express.static("public"));
 // Moteur de vues EJS
 app.set("view engine", "ejs");
 
+// Importation des contrôleurs
+const catwayController = require("./controllers/catwayController");
+const reservationController = require("./controllers/reservationController");
+const userController = require("./controllers/userController");
+
 // Importation des routes
 const authRoutes = require("./routes/auth");
 const catwayRoutes = require("./routes/catways");
@@ -52,7 +59,9 @@ const reservationRoutes = require("./routes/reservation");
 const userRoutes = require("./routes/user");
 
 const { isAuthenticated } = require("./middleware/auth");
+
 console.log("ROUTE DE TEST : POST /reservations définie dans app.js");
+
 // Page d'accueil
 app.get("/", (req, res) => {
     res.render("index", { error: null });
@@ -91,6 +100,7 @@ app.get("/documentation", isAuthenticated, (req, res) => {
     res.render("documentation");
 });
 
+// Pages des catways
 app.get(
     "/catways-page",
     isAuthenticated,
@@ -112,7 +122,6 @@ app.get("/catways/create", isAuthenticated, (req, res) => {
 app.post("/catways-page", isAuthenticated, async (req, res) => {
     try {
         const { catwayNumber, catwayType, catwayState } = req.body;
-
         const Catway = require("./models/Catway");
 
         await Catway.create({
@@ -121,45 +130,42 @@ app.post("/catways-page", isAuthenticated, async (req, res) => {
             catwayState
         });
 
-        res.redirect("/catways-page");
+        return res.redirect("/catways-page");
     } catch (error) {
         console.error("Erreur lors de la création du catway :", error);
-        res.status(400).send(
+        return res.status(400).send(
             "Impossible de créer le catway. Vérifie que le numéro n'est pas déjà utilisé et que les informations sont correctes."
         );
     }
 });
 
-
- // Liste des réservations
+// Liste des réservations
 app.get(
     "/reservations-page",
     isAuthenticated,
     reservationController.renderReservationsPage
 );
 
-
 // Formulaire de création d'une réservation
 app.get("/reservations/create", isAuthenticated, (req, res) => {
     res.render("reservation/create");
 });
 
-
- // Liste des utilisateurs
+// Liste des utilisateurs
 app.get(
     "/users-page",
     isAuthenticated,
     userController.renderUsersPage
 );
 
-// Formulaire de modification
+// Formulaire de modification d'un utilisateur
 app.get(
     "/users-page/:email/edit",
     isAuthenticated,
     userController.renderEditUser
 );
 
-// Enregistrement des modifications
+// Enregistrement des modifications d'un utilisateur
 app.post(
     "/users-page/:email/edit",
     isAuthenticated,
@@ -174,20 +180,15 @@ app.get(
 );
 
 // Formulaire de création d'un utilisateur
-app.get(
-    "/users/create",
-    isAuthenticated,
-    (req, res) => {
-        res.render("users/create");
-    }
-);
+app.get("/users/create", isAuthenticated, (req, res) => {
+    res.render("users/create");
+});
 
 // Branchement des routes
 app.use("/", authRoutes);
 app.use("/catways", catwayRoutes);
 app.use("/", reservationRoutes);
 app.use("/users", userRoutes);
-
 
 // Démarrage du serveur
 const PORT = process.env.PORT || 3000;
